@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: registration-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: registration_db
+    ports:
+      - "3308:3306"
+    volumes:
+      - registration_mysql_data:/var/lib/mysql
+
+volumes:
+  registration_mysql_data:

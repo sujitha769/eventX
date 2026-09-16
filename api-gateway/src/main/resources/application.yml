@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+
+            - id: organizer-auth
+              uri: lb://organizer-service
+              predicates:
+                - Path=/api/auth/**
+
+            - id: organizer-events
+              uri: lb://organizer-service
+              predicates:
+                - Path=/api/events/**
+
+            - id: registration-service
+              uri: lb://registration-service
+              predicates:
+                - Path=/api/registrations/**
+
+            - id: analytics-service
+              uri: lb://analytics-service
+              predicates:
+                - Path=/api/analytics/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+server:
+  port: 8080
